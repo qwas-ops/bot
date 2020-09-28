@@ -1,0 +1,124 @@
+
+import os
+import pyautogui
+import socket
+import string
+
+
+if __name__ == "__main__":
+
+    bot1IP = "127.0.0.1"
+    bot2IP = "127.0.0.1"
+    bot3IP = "127.0.0.1"
+
+    bot1bool = False
+    bot2bool = False
+    bot3bool = False
+
+    bot1_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    bot2_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    bot3_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+    port = 1337
+
+
+    print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+    print("Diep.io Ez Mode")
+    print()
+    print('"help" fuer hilfe')
+    print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+
+    while True:
+        user_input = input()
+
+
+        if(user_input == "help"):
+            print("     info")
+            print("     bot? -> IP manuell zuweisen")
+            print("     connect -> bots verbinden")
+            print("     start ('l' fuer abbruch!!)")
+
+
+        if(user_input == "connect"):
+            try:
+                bot1_socket.close
+                bot1bool = False
+            except:
+                qwer = 1
+            try:
+                bot2_socket.close
+                bot2bool = False
+            except:
+                qwer = 1
+            try:
+                bot3_socket.close
+                bot3bool = False
+            except:
+                qwer = 1
+
+
+            try:
+                bot1_socket.connect((bot1IP, port))
+                bot1_socket.send(str.encode(" bot1 connected"))
+                bot1bool = True
+                print(" bot1 connected")
+
+            except:
+                print(" cannot connect bot1")
+
+            try:
+                bot2_socket.connect((bot2IP, port +1))
+                bot2_socket.send(str.encode(" bot2 connected"))
+                bot2bool = True
+                print(" bot2 connected")
+
+            except:
+                print(" cannot connect bot2")
+
+            try:
+                bot3_socket.connect((bot3IP, port +2))
+                bot3_socket.send(str.encode(" bot3 connected"))
+                bot3bool = True
+                print(" bot3 connected")
+
+            except:
+                print(" cannot connect bot3")
+
+
+       
+
+        if(user_input == "bot"):
+            print(" Bot Nummer hinter Befehl angeben!")
+
+        if(user_input == "bot1"):
+            bot1IP = input(" Bot1 IP Adresse: ") 
+
+        if(user_input == "bot2"):
+            bot2IP = input(" Bot2 IP Adresse: ") 
+
+        if(user_input == "bot3"):
+            bot3IP = input(" Bot3 IP Adresse: ") 
+
+        if(user_input == "info"):
+            print(" info:")
+            print("     Bot 1: "+bot1IP)
+            if(bot1bool): print("      Verbunden")
+            else: print("      Nicht verbunden")
+            print("     Bot 2: "+bot2IP)
+            if(bot2bool): print("      Verbunden")
+            else: print("      Nicht verbunden")
+            print("     Bot 3: "+bot3IP)
+            if(bot3bool): print("      Verbunden")
+            else: print("      Nicht verbunden")
+
+
+
+        if(user_input == "start"):
+            pyautogui.FAILSAFE = False
+            while True:
+                position = (0, 0)
+                pyautogui.press("Enter")
+                if(input() == "l"):
+                    break
+                position = pyautogui.position()
+                print(position)
