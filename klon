@@ -1,0 +1,49 @@
+
+import socket
+
+
+print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+print("Diep.io Ez Mode KLON")
+print()
+print('"help" fuer hilfe')
+print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
+
+
+bot_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+ip_adress = "127.0.0.1"
+port = 1336
+
+if __name__ == "__main__":
+
+    while True:
+        user_input = input()
+        if(user_input == "help"):
+            print("     info")
+            print("     setup -> nummer + IP aendern")
+            print("     start")
+        if(user_input == "setup"):
+            ip_adress = input(" ip adresse angeben: ")
+            port += int(input(" klon nummer angeben (1-3): "))
+            try:
+                bot_socket.bind((ip_adress, port))
+                bot_socket.listen(1)
+            except:
+                print(" KLON NUMMER BEREITS VERGEBEN!")
+        if(user_input == "info"):
+            print(" info:")
+            print("     Botnummer: " + str((port - 1336)))
+            print("     IP Adresse: " + ip_adress)
+            print("     Port: " + str(port))
+        if(user_input == "start"):
+            break
+
+    while True:
+        try:
+            (client_socket, addr) = bot_socket.accept()
+            msg = client_socket.recv(1024)
+            print(str(msg, "utf8"))
+        
+        except:
+            print(" connection closed")
+        
